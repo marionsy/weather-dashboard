@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,30 +9,63 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <link rel="stylesheet" href="assets/style.css">
 
 </head>
 
 <body>
-    <header class="jumbotron jumbotron-fluid custom-jumbotron bg-dark">
-        <div class="container text-center bg-dark">
-          <h1 class="bg-dark text-light" id="title">Weather Dashboard</h1>
+    <main class="container-fluid">
+        <div class="row jumbotron bg-dark text-light">
+            <div class="col-12 text-center">
+                <h1>Weather Dashboard</h1>
+            </div>
         </div>
-    </header>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-3">
-            <h4 class="mt-1">Search for a City:</h4>
-            <div class="input-group">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Enter a city" aria-label="City search" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+        <div class="row">
+            <div class="col-3" id="citySearch">
+                <div class="row">
+                    <div class="col-12">
+                        <h4>Search for a City:</h4>
+                        <div class="input-group mb-3">
+                            <input type="text" class-form="form-control" id="enterCity" placeholder="Enter city">
+                            <button class="btn btn-outline-secondary" type="button" id="search">
+                                <i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <form id="searchHistory"></form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-9 pb-4 pt-4" id="weatherForecast">
+                <div class="row pb-2">
+                    <div class="col-12" id="cityWeather">
+                        <h4>Current City:</h4>
+
+                    </div>
+                </div>
+
+                <div class="row pb-2">
+                    <div class="col-12">
+                        <h4>5-Day Forecast:</h4>
+                    </div>
+                </div>
+
+                <div class="row" id="fivedayForecast">
+
                 </div>
             </div>
         </div>
-    </div>
- </div>
+
+        </div>
+
+    </main>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>

@@ -4,6 +4,12 @@ var searchButton = $("#search");
 var currWeather = $("#currentWeather");
 var weatherFore = $("#weatherForecast");
 
+var savedCities = JSON.parse(localStorage.getItem('cities'));
+
+if (savedCities) {
+    getLocation(savedCities[savedCities.length-1]);
+}
+
 function getLocation(city) {
     var requestUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=" + apiKey;
 
@@ -76,6 +82,8 @@ function getUV(lat, lon) {
         
         currWeather.children('.uv').text("UV Index: ");
         currWeather.children('.uv').append(uvSpan);
+
+        $(".currentWeatherCard").removeClass("d-none");
     });
 }
 
@@ -109,6 +117,8 @@ function getFiveDay(lat, lon) {
             forecastDay.children('.humidity').text(humidity);
             j++;
         }
+
+        $(".weatherCard").removeClass("d-none");
     }); 
 }
 
@@ -118,9 +128,9 @@ $("#search").on("click", function (event) {
 
     var city = $('#enterCity').val();
 
-    // Clear out forecast
-    forecast = [];
     getLocation(city);
+
+    saveCity(city);
 })
 
 function getDate(timestamp) {
@@ -152,4 +162,27 @@ function getWind(windValue) {
 
 function getHumidity(humidityValue) {
     return "Humidity: " + humidityValue + " %";
+}
+
+function saveCity(city) {
+   var savedCities = JSON.parse(localStorage.getItem('cities'));
+
+   if (!savedCities) {
+       savedCities = [];
+   }
+
+   savedCities.push(city);
+
+   localStorage.setItem('cities', JSON.stringify(savedCities));
+
+   var citybutton = $("<button>");
+   citybutton.attr('class', 'btn btn-secondary btn-lg btn-block');
+   citybutton.text(city);
+
+   citybutton.on("click", function (event) {
+       event.preventDefault();
+       getLocation(city);
+    })
+
+   $('#searchHistory').append(citybutton);
 }

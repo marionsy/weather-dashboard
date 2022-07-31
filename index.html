@@ -23,15 +23,19 @@
         </div>
 
         <div class="row">
-            <div class="col-3" id="citySearch">
+            <div class="col-2" id="citySearch">
                 <div class="row">
                     <div class="col-12">
                         <h4>Search for a City:</h4>
                         <div class="input-group mb-3">
-                            <input type="text" class-form="form-control" id="enterCity" placeholder="Enter city">
-                            <button class="btn btn-outline-secondary" type="button" id="search">
-                                <i class="fas fa-search"></i></button>
-                        </div>
+                            <input type="text"
+                            id="enterCity" class="form-control" placeholder="Enter city" aria-label="Enter city" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                              <button 
+                              id = "search"
+                              class="btn btn-outline-primary" type="button">Search</button>
+                            </div>
+                          </div>
                     </div>
                 </div>
 
@@ -42,10 +46,10 @@
                 </div>
             </div>
 
-            <div class="col-9 pb-4 pt-4" id="weatherForecast">
+            <div class="col-10 pb-4 pt-4" id="weatherForecast">
                 <div class="row pb-2">
-                    <div class="col-12" id="cityWeather">
-                        <div class="card">
+                    <div class="col-10" id="cityWeather">
+                        <div class="card currentWeatherCard d-none">
                             <div class="card-body" id="currentWeather">
                               <h3 class="title"></h3>
                               <p class="temp"></p>
@@ -58,14 +62,14 @@
                 </div>
 
                 <div class="row pb-2">
-                    <div class="col-12">
+                    <div class="col-12 weatherCard d-none">
                         <h4>5-Day Forecast:</h4>
                     </div>
                 </div>
 
                 <div class="row pb-">
                     <div class="col-md-2">
-                        <div class="card">
+                        <div class="card weatherCard d-none">
                             <div class="card-body" id="forecast-1">
                               <h4 class="date"></h4>
                               <span class="icon"></span>
@@ -76,7 +80,7 @@
                           </div>
                     </div>
                     <div class="col-md-2">
-                        <div class="card">
+                        <div class="card weatherCard d-none">
                             <div class="card-body" id="forecast-2">
                                 <h4 class="date"></h4>
                                 <span class="icon"></span>
@@ -87,7 +91,7 @@
                           </div>
                     </div>
                     <div class="col-md-2">
-                        <div class="card">
+                        <div class="card weatherCard d-none">
                             <div class="card-body" id="forecast-3">
                                 <h4 class="date"></h4>
                                 <span class="icon"></span>
@@ -98,7 +102,7 @@
                           </div>
                     </div>
                     <div class="col-md-2">
-                        <div class="card">
+                        <div class="card weatherCard d-none">
                             <div class="card-body" id="forecast-4">
                                 <h4 class="date"></h4>
                                 <span class="icon"></span>
@@ -109,7 +113,7 @@
                           </div>
                     </div>
                     <div class="col-md-2">
-                        <div class="card">
+                        <div class="card weatherCard d-none">
                             <div class="card-body" id="forecast-5">
                                 <h4 class="date"></h4>
                                 <span class="icon"></span>

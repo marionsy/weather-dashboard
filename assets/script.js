@@ -7,27 +7,27 @@ var weatherFore = $("#weatherForecast");
 var savedCities = JSON.parse(localStorage.getItem('cities'));
 
 if (savedCities) {
-    getLocation(savedCities[savedCities.length-1]);
+    getLocation(savedCities[savedCities.length - 1]);
 }
 
 function getLocation(city) {
     var requestUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=" + apiKey;
 
     fetch(requestUrl)
-    .then(function (response) {
-         return response.json();
-    })
-    .then(function(json) {
-        var lat = json[0].lat;
-        var lon = json[0].lon;
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (json) {
+            var lat = json[0].lat;
+            var lon = json[0].lon;
 
-        // Get current weather
-        getCurrentWeather(lat, lon);
-        getUV(lat, lon); 
+            // Get current weather
+            getCurrentWeather(lat, lon);
+            getUV(lat, lon);
 
-        // Get 5 day forecast
-        getFiveDay(lat, lon);
-    })
+            // Get 5 day forecast
+            getFiveDay(lat, lon);
+        })
 }
 
 // city name > response.name
@@ -40,23 +40,23 @@ function getCurrentWeather(lat, lon) {
     var requestUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey + "&units=imperial";
 
     fetch(requestUrl)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function(json) {
-        var title = json.name + " (" + getDate(json.dt) + ")";
-        var icon = getIcon(json.weather[0].icon, json.weather[0].description);
-        var temp = getTemp(json.main.temp);
-        var wind = getWind(json.wind.speed);
-        var humidity = getHumidity(json.main.humidity);
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (json) {
+            var title = json.name + " (" + getDate(json.dt) + ")";
+            var icon = getIcon(json.weather[0].icon, json.weather[0].description);
+            var temp = getTemp(json.main.temp);
+            var wind = getWind(json.wind.speed);
+            var humidity = getHumidity(json.main.humidity);
 
-        currWeather.children('.title').text(title);
-        currWeather.children('.title').append(icon);
-        currWeather.children('.temp').text(temp);
-        currWeather.children('.wind').text(wind);
-        currWeather.children('.humidity').text(humidity);        
-    });
-    
+            currWeather.children('.title').text(title);
+            currWeather.children('.title').append(icon);
+            currWeather.children('.temp').text(temp);
+            currWeather.children('.wind').text(wind);
+            currWeather.children('.humidity').text(humidity);
+        });
+
 }
 
 // uv index > response.value
@@ -64,27 +64,27 @@ function getUV(lat, lon) {
     var requestUrl = "https://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey;
 
     fetch(requestUrl)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function(json) {
-        var uvValue = json.value;
-        var uvSpan = $("<span>");
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (json) {
+            var uvValue = json.value;
+            var uvSpan = $("<span>");
 
-        if (uvValue < 3) {
-            uvSpan.attr('class', 'badge badge-success');
-        } else if (uvValue >= 3 && uvValue < 8) {
-            uvSpan.attr('class', 'badge badge-warning');
-        } else {
-            uvSpan.attr('class', 'badge badge-danger');
-        }
-        uvSpan.text(uvValue);
-        
-        currWeather.children('.uv').text("UV Index: ");
-        currWeather.children('.uv').append(uvSpan);
+            if (uvValue < 3) {
+                uvSpan.attr('class', 'badge badge-success');
+            } else if (uvValue >= 3 && uvValue < 8) {
+                uvSpan.attr('class', 'badge badge-warning');
+            } else {
+                uvSpan.attr('class', 'badge badge-danger');
+            }
+            uvSpan.text(uvValue);
 
-        $(".currentWeatherCard").removeClass("d-none");
-    });
+            currWeather.children('.uv').text("UV Index: ");
+            currWeather.children('.uv').append(uvSpan);
+
+            $(".currentWeatherCard").removeClass("d-none");
+        });
 }
 
 // date > response.list[day].dt
@@ -96,30 +96,30 @@ function getFiveDay(lat, lon) {
     var requestUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey + "&units=imperial";
 
     fetch(requestUrl)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function(json) {
-        var j = 1;
-        for (var i = 4; i < 40; i+=8) {
-            var date = getDate(json.list[i].dt);
-            var icon = getIcon(json.list[i].weather[0].icon, json.list[i].weather[0].description);
-            var temp = getTemp(json.list[i].main.temp);
-            var wind = getWind(json.list[i].wind.speed);
-            var humidity = getHumidity(json.list[i].main.humidity);
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (json) {
+            var j = 1;
+            for (var i = 4; i < 40; i += 8) {
+                var date = getDate(json.list[i].dt);
+                var icon = getIcon(json.list[i].weather[0].icon, json.list[i].weather[0].description);
+                var temp = getTemp(json.list[i].main.temp);
+                var wind = getWind(json.list[i].wind.speed);
+                var humidity = getHumidity(json.list[i].main.humidity);
 
-            var forecastDay = $('#forecast-' + j);
-            forecastDay.children('.date').text(date);
-            forecastDay.children('.icon').empty();
-            forecastDay.children('.icon').append(icon);
-            forecastDay.children('.temp').text(temp);
-            forecastDay.children('.wind').text(wind);
-            forecastDay.children('.humidity').text(humidity);
-            j++;
-        }
+                var forecastDay = $('#forecast-' + j);
+                forecastDay.children('.date').text(date);
+                forecastDay.children('.icon').empty();
+                forecastDay.children('.icon').append(icon);
+                forecastDay.children('.temp').text(temp);
+                forecastDay.children('.wind').text(wind);
+                forecastDay.children('.humidity').text(humidity);
+                j++;
+            }
 
-        $(".weatherCard").removeClass("d-none");
-    }); 
+            $(".weatherCard").removeClass("d-none");
+        });
 }
 
 
@@ -165,24 +165,24 @@ function getHumidity(humidityValue) {
 }
 
 function saveCity(city) {
-   var savedCities = JSON.parse(localStorage.getItem('cities'));
+    var savedCities = JSON.parse(localStorage.getItem('cities'));
 
-   if (!savedCities) {
-       savedCities = [];
-   }
+    if (!savedCities) {
+        savedCities = [];
+    }
 
-   savedCities.push(city);
+    savedCities.push(city);
 
-   localStorage.setItem('cities', JSON.stringify(savedCities));
+    localStorage.setItem('cities', JSON.stringify(savedCities));
 
-   var citybutton = $("<button>");
-   citybutton.attr('class', 'btn btn-secondary btn-lg btn-block');
-   citybutton.text(city);
+    var citybutton = $("<button>");
+    citybutton.attr('class', 'btn btn-secondary btn-lg btn-block');
+    citybutton.text(city);
 
-   citybutton.on("click", function (event) {
-       event.preventDefault();
-       getLocation(city);
+    citybutton.on("click", function (event) {
+        event.preventDefault();
+        getLocation(city);
     })
 
-   $('#searchHistory').append(citybutton);
+    $('#searchHistory').append(citybutton);
 }

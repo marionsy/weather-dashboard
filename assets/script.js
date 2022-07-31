@@ -62,7 +62,20 @@ function getUV(lat, lon) {
         return response.json();
     })
     .then(function(json) {
-        currWeather.children('.uv').text("UV Index: " + json.value);
+        var uvValue = json.value;
+        var uvSpan = $("<span>");
+
+        if (uvValue < 3) {
+            uvSpan.attr('class', 'badge badge-success');
+        } else if (uvValue >= 3 && uvValue < 8) {
+            uvSpan.attr('class', 'badge badge-warning');
+        } else {
+            uvSpan.attr('class', 'badge badge-danger');
+        }
+        uvSpan.text(uvValue);
+        
+        currWeather.children('.uv').text("UV Index: ");
+        currWeather.children('.uv').append(uvSpan);
     });
 }
 
@@ -82,18 +95,18 @@ function getFiveDay(lat, lon) {
         var j = 1;
         for (var i = 4; i < 40; i+=8) {
             var date = getDate(json.list[i].dt);
-            var icon = getIcon(json.list[i].weather[0].icon);
+            var icon = getIcon(json.list[i].weather[0].icon, json.list[i].weather[0].description);
             var temp = getTemp(json.list[i].main.temp);
             var wind = getWind(json.list[i].wind.speed);
             var humidity = getHumidity(json.list[i].main.humidity);
 
             var forecastDay = $('#forecast-' + j);
             forecastDay.children('.date').text(date);
-            forecastDay.children('.icon').text(icon);
+            forecastDay.children('.icon').empty();
+            forecastDay.children('.icon').append(icon);
             forecastDay.children('.temp').text(temp);
             forecastDay.children('.wind').text(wind);
             forecastDay.children('.humidity').text(humidity);
-
             j++;
         }
     }); 

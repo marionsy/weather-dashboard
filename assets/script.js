@@ -1,19 +1,8 @@
 var apiKey = "b6182655a0eb457214526577dea3c502";
 var searchButton = $("#search");
 
-// Current weather
-var currentWeather = {
-    cityName: null,
-    date: null,
-    icon: null,
-    temp: null,
-    humidity: null,
-    wind: null,
-    uv: null
-}
-
-// Forecast
-var forecast = [];
+var currWeather = $("#currentWeather");
+var weatherFore = $("#weatherForecast");
 
 function getLocation(city) {
     var requestUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=" + apiKey;
@@ -49,13 +38,19 @@ function getCurrentWeather(lat, lon) {
         return response.json();
     })
     .then(function(json) {
-        currentWeather.cityName = json.name;
-        currentWeather.date = json.dt;
-        currentWeather.icon = json.weather[0].icon;
-        currentWeather.temp = json.main.temp;
-        currentWeather.humidity = json.main.humidity;
-        currentWeather.wind = json.wind.speed;
+        var title = json.name + " (" + getDate(json.dt) + ")";
+        var icon = json.weather[0].icon;
+        var temp = json.main.temp;
+        var wind = json.wind.speed;
+        var humidity = json.main.humidity;
+
+        currWeather.children('.title').text(title);
+        currWeather.children('.icon').text(icon);
+        currWeather.children('.temp').text(temp);
+        currWeather.children('.wind').text(wind);
+        currWeather.children('.humidity').text(humidity);        
     });
+    
 }
 
 // uv index > response.value
@@ -67,7 +62,7 @@ function getUV(lat, lon) {
         return response.json();
     })
     .then(function(json) {
-        currentWeather.uv = json.value;
+        currWeather.children('.uv').text(json.value);
     });
 }
 
@@ -84,15 +79,22 @@ function getFiveDay(lat, lon) {
         return response.json();
     })
     .then(function(json) {
+        var j = 1;
         for (var i = 4; i < 40; i+=8) {
-            var forecastDay = {
-                date: json.list[i].dt,
-                temp: json.list[i].main.temp,
-                speed: json.list[i].wind.speed,
-                humidity: json.list[i].main.humidity,
-                icon: json.list[i].weather[0].icon,
-            };
-            forecast.push(forecastDay);
+            var date = getDate(json.list[i].dt);
+            var icon = json.list[i].weather[0].icon;
+            var temp = json.list[i].main.temp;
+            var wind = json.list[i].wind.speed;
+            var humidity = json.list[i].main.humidity;
+
+            var forecastDay = $('#forecast-' + j);
+            forecastDay.children('.date').text(date);
+            forecastDay.children('.icon').text(icon);
+            forecastDay.children('.temp').text(temp);
+            forecastDay.children('.wind').text(wind);
+            forecastDay.children('.humidity').text(humidity);
+
+            j++;
         }
     }); 
 }
@@ -101,14 +103,22 @@ function getFiveDay(lat, lon) {
 $("#search").on("click", function (event) {
     event.preventDefault();
 
-    var city = $("#enterCity").val();
+    var city = $('#enterCity').val();
 
     // Clear out forecast
     forecast = [];
     getLocation(city);
 })
 
+function getDate(timestamp) {
+    var date = new Date(timestamp * 1000);
 
+    var month = date.getMonth();
+    var day = date.getDate();
+    var year = date.getFullYear();
+
+    return month + "/" + day + "/" + year;
+}
 
 
 

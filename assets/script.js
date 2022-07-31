@@ -39,13 +39,13 @@ function getCurrentWeather(lat, lon) {
     })
     .then(function(json) {
         var title = json.name + " (" + getDate(json.dt) + ")";
-        var icon = json.weather[0].icon;
-        var temp = json.main.temp;
-        var wind = json.wind.speed;
-        var humidity = json.main.humidity;
+        var icon = getIcon(json.weather[0].icon, json.weather[0].description);
+        var temp = getTemp(json.main.temp);
+        var wind = getWind(json.wind.speed);
+        var humidity = getHumidity(json.main.humidity);
 
         currWeather.children('.title').text(title);
-        currWeather.children('.icon').text(icon);
+        currWeather.children('.title').append(icon);
         currWeather.children('.temp').text(temp);
         currWeather.children('.wind').text(wind);
         currWeather.children('.humidity').text(humidity);        
@@ -62,7 +62,7 @@ function getUV(lat, lon) {
         return response.json();
     })
     .then(function(json) {
-        currWeather.children('.uv').text(json.value);
+        currWeather.children('.uv').text("UV Index: " + json.value);
     });
 }
 
@@ -82,10 +82,10 @@ function getFiveDay(lat, lon) {
         var j = 1;
         for (var i = 4; i < 40; i+=8) {
             var date = getDate(json.list[i].dt);
-            var icon = json.list[i].weather[0].icon;
-            var temp = json.list[i].main.temp;
-            var wind = json.list[i].wind.speed;
-            var humidity = json.list[i].main.humidity;
+            var icon = getIcon(json.list[i].weather[0].icon);
+            var temp = getTemp(json.list[i].main.temp);
+            var wind = getWind(json.list[i].wind.speed);
+            var humidity = getHumidity(json.list[i].main.humidity);
 
             var forecastDay = $('#forecast-' + j);
             forecastDay.children('.date').text(date);
@@ -120,5 +120,23 @@ function getDate(timestamp) {
     return month + "/" + day + "/" + year;
 }
 
+function getIcon(iconValue, iconDescription) {
+    var iconEl = $("<img>");
+    var iconSrc = "https://openweathermap.org/img/w/" + iconValue + ".png";
+    iconEl.attr('src', iconSrc);
+    iconEl.attr('alt', iconDescription)
 
+    return iconEl;
+}
 
+function getTemp(tempValue) {
+    return "Temp: " + tempValue + "°F";
+}
+
+function getWind(windValue) {
+    return "Wind: " + windValue + " MPH";
+}
+
+function getHumidity(humidityValue) {
+    return "Humidity: " + humidityValue + " %";
+}

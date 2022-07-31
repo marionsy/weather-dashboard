@@ -10,20 +10,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css">
 
 </head>
 
 <body>
     <main class="container-fluid">
-        <div class="row jumbotron bg-dark text-light">
+        <div class="row jumbotron" id="header">
             <div class="col-12 text-center">
                 <h1>Weather Dashboard</h1>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-2" id="citySearch">
+            <div class="col-3" id="citySearch">
                 <div class="row">
                     <div class="col-12">
                         <h4>Search for a City:</h4>
@@ -44,7 +47,7 @@
                 </div>
             </div>
 
-            <div class="col-10 pb-4 pt-4" id="weatherForecast">
+            <div class="col-9 pb-4 pt-4" id="weatherForecast">
                 <div class="row pb-2">
                     <div class="col-10" id="cityWeather">
                         <div class="card currentWeatherCard d-none">

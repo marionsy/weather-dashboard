@@ -1,3 +1,11 @@
+* {
+    font-family: "montserrat";
+}
+
+body {
+    background-color: gray;
+}
+
 #title {
     font-size: 50px;
 }
@@ -6,3 +14,21 @@
     padding-top: 2%;
     padding-bottom: 2%;
   }
+
+#header {
+    background-color: pink;
+    color: black;
+}
+
+#search {
+    background-color: pink;
+}
+
+#cityWeather
+#currentWeather {
+    background-color: pink;
+}
+
+.card-body {
+    background-color: pink;
+}

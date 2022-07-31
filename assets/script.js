@@ -177,6 +177,7 @@ function saveCity(city) {
 
     var citybutton = $("<button>");
     citybutton.attr('class', 'btn btn-secondary btn-lg btn-block');
+    citybutton.css("background-color", "pink");
     citybutton.text(city);
 
     citybutton.on("click", function (event) {

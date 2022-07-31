@@ -7,17 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
 
+    <!-- Linking Bootstrap, font awesome, Google fonts API and CSS stylesheet -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css">
 
 </head>
 
 <body>
+    <!-- Header -->
     <main class="container-fluid">
         <div class="row jumbotron" id="header">
             <div class="col-12 text-center">
@@ -25,6 +26,7 @@
             </div>
         </div>
 
+        <!-- City search -->
         <div class="row">
             <div class="col-3" id="citySearch">
                 <div class="row">
@@ -40,6 +42,7 @@
                     </div>
                 </div>
 
+                <!-- City search history appended here-->
                 <div class="row">
                     <div class="col-12">
                         <form id="searchHistory"></form>
@@ -47,6 +50,7 @@
                 </div>
             </div>
 
+            <!-- Displays current weather for city -->
             <div class="col-9 pb-4 pt-4" id="weatherForecast">
                 <div class="row pb-2">
                     <div class="col-10" id="cityWeather">
@@ -62,6 +66,7 @@
                     </div>
                 </div>
 
+                <!-- Displays 5 day forecast -->
                 <div class="row pb-2">
                     <div class="col-12 weatherCard d-none">
                         <h4>5-Day Forecast:</h4>
@@ -136,7 +141,7 @@
 
     </main>
 
-
+    <!-- Linking Bootstrap javascript and javascript file -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
